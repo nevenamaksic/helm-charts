@@ -1,0 +1,12 @@
+# templates/pod.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-app
+  labels:
+    app: nginx
+spec:
+  containers:
+  - name: nginx
+    image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+    imagePullPolicy: {{ .Values.image.pullPolicy }}
