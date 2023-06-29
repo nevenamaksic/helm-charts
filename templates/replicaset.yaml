@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: my-app
+  labels:
+    app: my-app-rs
+spec:
+  replicas: {{ .Values.resource.replicas }}
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - name: nginx
+          image: "{{ .Values.containers.repository }}:{{ .Values.containers.version }}"
+          imagePullPolicy: {{ .Values.containers.imagePullPolicy }}
+          ports:
+            - containerPort: {{ .Values.containers.port }}

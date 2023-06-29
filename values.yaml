@@ -1,0 +1,14 @@
+containers:
+  repository: nginx
+  port: 80
+  version: 1.25.1
+  imagePullPolicy: Always
+
+resource:
+  type: ReplicaSet
+  replicas: 2
+
+service:
+  type: LoadBalancer
+  port: 8080
+
