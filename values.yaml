@@ -1,0 +1,9 @@
+image:
+  repository: nginx
+  tag: 1.14.2
+  pullPolicy: IfNotPresent
+
+service:
+  type: LoadBalancer
+  port: 8080
+  targetPort: 80
