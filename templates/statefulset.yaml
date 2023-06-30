@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Values.StatefulSet.name }}
+spec:
+  serviceName: {{ .Values.Service.serviceName }}
+  replicas: {{ .Values.StatefulSet.replicas }}
+  selector:
+    matchLabels:
+      app: {{.Values.StatefulSet.selector.app }}
+  template:
+    metadata:
+      labels:
+        app: {{.Values.StatefulSet.selector.app }}
+    spec:
+      containers:
+      - name: {{.Values.containers.name }}
+        image: "{{.Values.containers.repo}}:{{.Values.containers.tag}}" 
+        env:
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-password  
+              key: password
+        ports:
+        - containerPort: {{.Values.containers.port }}
+        volumeMounts:
+        - name: postgres-data
+          mountPath: /var/lib/postgresql/data-new
+  volumeClaimTemplates:
+  - metadata:
+      name: postgres-data
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      storageClassName: gp2
+      resources:
+        requests:
+          storage: 5Gi 

@@ -1,0 +1,15 @@
+StatefulSet:
+  replicas: 2
+  name: postgres
+  selector: 
+    app: postgres
+
+Service:
+  serviceName: postgres
+  port: 5432
+
+containers:
+  name: postgres
+  repo: postgres
+  tag: 15.3
+  port: 5432
