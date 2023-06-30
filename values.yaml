@@ -1,0 +1,11 @@
+containers:
+  repo: nginx
+  tag: 1.24.0
+  app: nginx
+  port: 80
+
+deployment:
+  replicas: 2
+
+service:
+  type: NodePort
